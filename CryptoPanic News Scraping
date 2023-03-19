@@ -1,0 +1,21 @@
+import requests
+import json
+import time
+import random
+
+api_key = '6210a441e373eac73ac39f305a8b0cf644dcb9e4'
+crypto_name = 'Ocean Protocol'
+
+# Add timestamp and random query parameters to force a fresh response
+timestamp = int(time.time())
+rand = random.randint(1, 100000)
+url = f'https://cryptopanic.com/api/posts/?auth_token={api_key}&q={crypto_name}&timestamp={timestamp}&rand={rand}'
+
+# Make API request to CryptoPanic
+response = requests.get(url)
+
+# Parse JSON response and extract number of articles
+data = json.loads(response.text)
+num_articles = data['count']
+
+print(f'Number of articles mentioning {crypto_name}: {num_articles}')
